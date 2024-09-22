@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="greeting"></h1>
+    <form id="quizForm">
+      <!-- Question 1 (Radio Buttons) -->
+      <div class="question">
+        <label>1. What is the capital of France?</label>
+        <div>
+          <input type="radio" name="q1" value="Paris"> Paris<br>
+          <input type="radio" name="q1" value="Berlin"> Berlin<br>
+          <input type="radio" name="q1" value="Madrid"> Madrid<br>
+        </div>
+      </div>
+
+      <!-- Question 2 (Checkbox) -->
+      <div class="question">
+        <label>2. Which of the following are fruits? (Select all that apply)</label>
+        <div>
+          <input type="checkbox" name="q2" value="Apple"> Apple<br>
+          <input type="checkbox" name="q2" value="Carrot"> Carrot<br>
+          <input type="checkbox" name="q2" value="Banana"> Banana<br>
+        </div>
+      </div>
+
+      <!-- Question 3 (Text Input) -->
+      <div class="question">
+        <label>3. What is your favorite programming language?</label>
+        <input type="text" name="q3" required>
+      </div>
+
+      <!-- Question 4 (Dropdown) -->
+      <div class="question">
+        <label>4. Choose your country:</label>
+        <select name="q4" required>
+          <option value="">Select</option>
+          <option value="USA">USA</option>
+          <option value="India">India</option>
+          <option value="France">France</option>
+        </select>
+      </div>
+
+      <button type="submit">Submit Quiz</button>
+    </form>
+  </div>
+
+  <script>
+    // Greet user by name
+    const username = localStorage.getItem("username");
+    document.getElementById("greeting").textContent = `Hello, ${username}! Answer the following questions:`;
+
+    // Handle form submission
+    document.getElementById("quizForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission reload
+
+      // Collect answers
+      const formData = new FormData(this);
+      const answers = {};
+      formData.forEach((value, key) => {
+        answers[key] = value;
+      });
+
+      // Save answers to localStorage or any other storage
+      localStorage.setItem("quizAnswers", JSON.stringify(answers));
+
+      // Navigate to the quiz complete page
+      window.location.href = "complete.html";
+    });
+  </script>
+</body>
+</html>
